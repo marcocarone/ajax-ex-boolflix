@@ -4,10 +4,13 @@ $(document).ready(function() {
 
   $(document).on("click", ".cerca", function() {
     var query = $(".input-ricerca").val();
-    $(".film").html("");
-    chiamataAjaxFilm(query, ApiKey, LinkFilm);
-    $(".input-ricerca").val("");
-
+    if (query == 0) {
+      alert("devi inserire una ricerca");
+    } else {
+      $(".film").html("");
+      chiamataAjaxFilm(query, ApiKey, LinkFilm);
+      $(".input-ricerca").val("");
+    }
   })
 });
 
@@ -32,7 +35,7 @@ function chiamataAjaxFilm(query, ApiKey, LinkFilm) {
   });
 }
 
-function stampaFilm(risultatiFilm){
+function stampaFilm(risultatiFilm) {
   var source = $("#film").html();
   var template = Handlebars.compile(source);
 
