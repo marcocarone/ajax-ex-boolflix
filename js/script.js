@@ -3,17 +3,17 @@ $(document).ready(function() {
   var LinkFilm = "https://api.themoviedb.org/3/search/movie";
 
   $(document).on("click", ".cerca", function() {
-    chiamataAjaxFilm(ApiKey, LinkFilm);
-
+    var query = $(".input-ricerca").val();
+    $(".film").html("");
+    chiamataAjaxFilm(query, ApiKey, LinkFilm);
+    $(".input-ricerca").val("");
 
   })
 });
 
 // FUNZIONI DELLO SCRIPT
 
-function chiamataAjaxFilm(ApiKey, LinkFilm) {
-  var query = $(".input-ricerca").val();
-  console.log("ricerca:" + query);
+function chiamataAjaxFilm(query, ApiKey, LinkFilm) {
   $.ajax({
     url: LinkFilm,
     method: 'GET',
@@ -24,7 +24,6 @@ function chiamataAjaxFilm(ApiKey, LinkFilm) {
     },
     success: function(data) {
       var risultatiFilm = data.results;
-      console.log("risultati" + risultatiFilm)
       stampaFilm(risultatiFilm);
     },
     error: function(richiesta, stato, errori) {
