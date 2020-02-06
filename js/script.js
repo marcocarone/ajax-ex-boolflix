@@ -3,36 +3,48 @@ $(document).ready(function() {
   var LinkFilm = "https://api.themoviedb.org/3/search/movie";
 
   $(document).on("click", ".cerca", function() {
-    var query = $(".input-ricerca").val();
-    if (query == 0) {
-      alert("devi inserire una ricerca");
-    } else {
-      $(".film").html("");
-      chiamataAjaxFilm(query, ApiKey, LinkFilm);
-      $(".input-ricerca").val("");
-    }
-  })
+    ricercaFilm(ApiKey, LinkFilm);
+  });
+
+  $('.input-ricerca').keypress(
+    function() {
+      if (event.which == 13 || event.keyCode == 13) {
+        ricercaFilm(ApiKey, LinkFilm);
+      }
+    });
+
+
 });
+
+
 
 // FUNZIONI DELLO SCRIPT
 
-function chiamataAjaxFilm(query, ApiKey, LinkFilm) {
-  $.ajax({
-    url: LinkFilm,
-    method: 'GET',
-    data: {
-      api_key: ApiKey,
-      language: "it-IT",
-      query: query,
-    },
-    success: function(data) {
-      var risultatiFilm = data.results;
-      stampaFilm(risultatiFilm);
-    },
-    error: function(richiesta, stato, errori) {
-      console.log(errori);
-    }
-  });
+function ricercaFilm(ApiKey, LinkFilm) {
+  var query = $(".input-ricerca").val();
+
+  if (query == 0) {
+    alert("devi inserire una ricerca");
+  } else {
+    $(".film").html("");
+    $.ajax({
+      url: LinkFilm,
+      method: 'GET',
+      data: {
+        api_key: ApiKey,
+        language: "it-IT",
+        query: query,
+      },
+      success: function(data) {
+        var risultatiFilm = data.results;
+        stampaFilm(risultatiFilm);
+      },
+      error: function(richiesta, stato, errori) {
+        console.log(errori);
+      }
+    });
+    $(".input-ricerca").val("");
+  }
 }
 
 function stampaFilm(risultatiFilm) {
