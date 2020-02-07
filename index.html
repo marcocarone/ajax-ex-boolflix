@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="it" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
@@ -26,17 +26,32 @@
     </div>
   </header>
   <main>
-    
-    <div class="film">
+    <div class="main__container">
+      <div class="film"></div>
+      <h2>Serie tv</h2>
+      <div class="serie_tv"></div>
     </div>
-
   </main>
 
   <script id="film" type="text/x-handlebars-template">
-    <div>{{title}}</div>
-    <div>{{original_title}}</div>
-    <div>{{original_language}}</div>
-    <div>{{vote_average}}</div>
+    <div class="film__container">
+      <img class="crop" src="{{{poster_path}}}" alt="{{title}}">
+      <div>{{title}}</div>
+      <div>{{original_title}}</div>
+      <div>{{{original_language}}}</div>
+      <div>{{{vote_average}}}</div>
+    </div>
+
+  </script>
+
+  <script id="serie_tv" type="text/x-handlebars-template">
+    <div class="serie_tv__container">
+      <img class="crop" src="{{{poster_path}}}" alt="{{name}}">
+      <div>{{name}}</div>
+      <div>{{original_name}}</div>
+      <div>{{{original_language}}}</div>
+      <div>{{{vote_average}}}</div>
+    </div>
   </script>
 
   <script src="js/script.js" charset="utf-8"></script>
