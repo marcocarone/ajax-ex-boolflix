@@ -6,17 +6,15 @@ $(document).ready(function() {
 
 
   $(document).on("click", ".cerca", function() {
-    var pagina = 1;
-    console.log("setto pagina subito dopo il click ricerca: " + pagina);
-    ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina);
+
+    ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv);
   });
 
   $('.input-ricerca').keypress(
     function() {
       if (event.which == 13 || event.keyCode == 13) {
-        var pagina = 1;
-        console.log("setto pagina subito dopo il click ricerca: " + pagina);
-        ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina);
+
+        ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv);
       }
     });
 
@@ -170,7 +168,6 @@ $(document).ready(function() {
   //////////////////////////////////////////////////////////////////////
 
 
-
 });
 
 ////////////////  FUNZIONI DELLO SCRIPT  //////////////////////////
@@ -178,7 +175,7 @@ $(document).ready(function() {
 
 
 /////////////  FUNZIONE RICERCA FILM E SERIE TV //////////////////
-function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina) {
+function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv) {
 
   var query = $(".input-ricerca").val();
   if (query == 0) {
@@ -199,8 +196,8 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
     $(".film-popolari").remove();
     $(".film-piu-votati").remove();
 
-    var pagina = 1;
-    console.log("setto pagina in ricercaFilmSerieTv: " + pagina);
+
+
 
     $.ajax({
       url: LinkFilm,
@@ -257,33 +254,38 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
           ////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
           /////////////////// FUNZIONE PAGINE SUCCESSIVA E PRECEDENTE ////////////
 
 
           $(".bottone__prev").hide()
 
+          var dataPagina = $(".main__container").find(".film").attr("data-page");
+          console.log( $(".main__container").find(".film").attr("data-page"))
+
+          var numeroDataPagina = parseInt(dataPagina);
+          console.log("numero data pagina: " + numeroDataPagina);
+
+
 
           $(document).on("click", ".bottone__suc", function() {
-            pagina++;
-            console.log("num pagina suc: " + pagina);
+
+          numeroDataPagina++
+          console.log("num pagina prev: " + numeroDataPagina);
+
 
             $(".film").html("");
-            var questoBottoneSuc = $(this);
+
             $(".bottone__prev").show()
 
 
-            if (pagina <= totalePagineFilm) {
-              chiamataAjaxPaginaPrecSuc(pagina, query);
+            if (numeroDataPagina <= totalePagineFilm) {
+              chiamataAjaxPaginaPrecSuc(numeroDataPagina, query);
             } else {
-              questoBottoneSuc.hide();
+              $(this).hide();
             }
 
-            if (pagina == totalePagineFilm) {
-              questoBottoneSuc.hide();
+            if (numeroDataPagina == totalePagineFilm) {
+              $(this).hide();
             }
 
           });
@@ -292,24 +294,24 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
 
 
           $(document).on("click", ".bottone__prev", function() {
-            pagina--;
-            console.log("num pagina prev: " + pagina);
+            numeroDataPagina--
+            console.log("num pagina prev: " + numeroDataPagina);
 
             $(".film").html("");
-            var questoBottone = $(this);
+
             $(".bottone__suc").show()
 
 
 
-            if (pagina >= 1) {
+            if (numeroDataPagina >= 1) {
               $(".film").html("");
-              chiamataAjaxPaginaPrecSuc(pagina, query);
+              chiamataAjaxPaginaPrecSuc(numeroDataPagina, query);
             } else {
-              questoBottone.hide();
+              $(this).hide();
             }
 
-            if (pagina == 1) {
-              questoBottone.hide();
+            if (numeroDataPagina == 1) {
+              $(this).hide();
             }
           });
 
@@ -343,6 +345,8 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
 
 
           ///////////////////////////////////////////////////////////
+
+
 
         }
       },
