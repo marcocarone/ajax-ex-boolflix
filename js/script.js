@@ -6,13 +6,17 @@ $(document).ready(function() {
 
 
   $(document).on("click", ".cerca", function() {
-    ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv);
+    var pagina = 1;
+    console.log("setto pagina subito dopo il click ricerca: " + pagina);
+    ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina);
   });
 
   $('.input-ricerca').keypress(
     function() {
       if (event.which == 13 || event.keyCode == 13) {
-        ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv);
+        var pagina = 1;
+        console.log("setto pagina subito dopo il click ricerca: " + pagina);
+        ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina);
       }
     });
 
@@ -174,7 +178,7 @@ $(document).ready(function() {
 
 
 /////////////  FUNZIONE RICERCA FILM E SERIE TV //////////////////
-function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv) {
+function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, listaGeneriSerieTv, pagina) {
 
   var query = $(".input-ricerca").val();
   if (query == 0) {
@@ -196,6 +200,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
     $(".film-piu-votati").remove();
 
     var pagina = 1;
+    console.log("setto pagina in ricercaFilmSerieTv: " + pagina);
 
     $.ajax({
       url: LinkFilm,
