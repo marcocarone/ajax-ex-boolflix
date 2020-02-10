@@ -267,7 +267,9 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
 
 
 
-          $(document).on("click", ".bottone__suc", function() {
+          // $(document).on("click", ".bottone__suc", function() {
+
+          $( ".bottone__suc" ).click(function() {
 
           numeroDataPagina++
           console.log("num pagina prev: " + numeroDataPagina);
@@ -293,7 +295,8 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
 
 
 
-          $(document).on("click", ".bottone__prev", function() {
+          // $(document).on("click", ".bottone__prev", function() {
+            $( ".bottone__prev" ).click(function() {
             numeroDataPagina--
             console.log("num pagina prev: " + numeroDataPagina);
 
