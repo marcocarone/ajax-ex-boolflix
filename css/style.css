@@ -53,7 +53,6 @@ body {
   justify-content: space-between;
   width: 100%;
   padding: 30px 20px 90px 20px;
-
 }
 
 .popolari__titoli,
@@ -90,8 +89,8 @@ body {
 
 .votati__titoli h3 {
   color: rgb(22, 26, 42);
-
 }
+
 /* ////////////////// INPUT RICERCA ////////////////// */
 .right__search {
   background: #131722;
@@ -270,7 +269,7 @@ body {
 }
 
 .main__container {
-  padding-top: 100px;
+  padding-top: 70px;
 }
 
 .film,
@@ -428,6 +427,53 @@ body {
   cursor: pointer;
 }
 
+/* ////////////  SLIDER //////////////////////////// */
+.swiper-container {
+  width: 100%;
+  height: 600px;
+  background: #ffffff;
+}
+
+.swiper-slide {
+  font-size: 18px;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+}
+
+.parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+.swiper-slide .title {
+  padding-top: 50px;
+  font-size: 41px;
+  font-weight: 300;
+}
+
+.swiper-slide .subtitle {
+  font-size: 21px;
+}
+
+.swiper-slide .text {
+  font-size: 1em;
+  max-width: 50%;
+  line-height: 1.5;
+  padding-top: 15px;
+}
+
+.padding {
+  padding: 10px 0 0 0;
+}
+
 /* MEDIA QUERY */
 @media screen and (min-width: 1400px) and (max-width: 1800px) {
   .popolari__titoli {
@@ -456,6 +502,10 @@ body {
     flex-basis: 50%;
   }
 
+  .swiper-slide .text {
+    max-width: 90%;
+  }
+
   .film__container,
   .serietv__container {
     width: calc(100% / 4);
@@ -471,6 +521,10 @@ body {
     flex-basis: 50%;
   }
 
+  .swiper-slide .text {
+    max-width: 90%;
+  }
+
   .film__container,
   .serietv__container {
     width: calc(100% / 3);
@@ -484,6 +538,10 @@ body {
 @media screen and (min-width: 640px) and (max-width: 860px) {
   .popolari__titoli {
     flex-basis: 100%;
+  }
+
+  .swiper-slide .text {
+    max-width: 90%;
   }
 
   .film__container,
@@ -513,6 +571,10 @@ body {
 @media screen and (max-width: 640px) {
   .popolari__titoli {
     flex-basis: 100%;
+  }
+
+  .swiper-slide .text {
+    max-width: 90%;
   }
 
   .container {

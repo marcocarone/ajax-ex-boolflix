@@ -168,6 +168,14 @@ $(document).ready(function() {
   //////////////////////////////////////////////////////////////////////
 
 
+////////////// HOME PAGE - SLIDER /////////////////////////////
+  var LinkProssimamenteAlCinema = "https://api.themoviedb.org/3/movie/upcoming?api_key=30743f728290a89379008b370ac44151&language=it-IT&page=1";
+  var appendSlider = $(".swiper-wrapper");
+  ricercaSliderHome(listaGeneriFilm, 9, LinkProssimamenteAlCinema, appendSlider);
+
+
+
+
 });
 
 ////////////////  FUNZIONI DELLO SCRIPT  //////////////////////////
@@ -623,7 +631,7 @@ function linkImgPoster(path) {
 
 
 
-/////////////  FUNZIONE RICERCA FILM E SERIE TV //////////////////
+/////////////  FUNZIONE RICERCA FILM HOME //////////////////
 function ricercaFilmHome(listaGeneriFilm, numero, link, append) {
 
   $.ajax({
@@ -677,6 +685,80 @@ function ricercaFilmHome(listaGeneriFilm, numero, link, append) {
     }
   });
 
+}
 
+
+
+
+/////////////  FUNZIONE RICERCA FILM E SERIE TV //////////////////
+function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
+
+  $.ajax({
+    url: link,
+    method: 'GET',
+
+    success: function(data) {
+      var risultatiProsAlCinema = data.results;
+      var source = $("#slider_home").html();
+      var template = Handlebars.compile(source);
+
+      for (var i = 0; i < numero; i++) {
+        var filmSingolo = risultatiProsAlCinema[i];
+
+        var descrizioneFilm = filmSingolo.overview;
+        if (descrizioneFilm.length == 0) {
+          descrizioneFilm = "Non è presente una descrizione del film"
+        }
+        var generiFilmSingolo = filmSingolo.genre_ids;
+
+        var listaGeneriFilmSingolo = [];
+        var genereFilmStampa = "";
+        for (var n = 0; n < generiFilmSingolo.length; n++) {
+          for (var j = 0; j < listaGeneriFilm.length; j++) {
+            if (generiFilmSingolo[n] == listaGeneriFilm[j].id) {
+              var genereFilm = listaGeneriFilm[j].name;
+              listaGeneriFilmSingolo.push(genereFilm);
+              genereFilmStampa += "<div class='genere'>" + genereFilm + "</div>"
+            }
+          }
+        }
+        var context = {
+          "genereStampa": genereFilmStampa,
+          "genere": listaGeneriFilmSingolo,
+          "id": filmSingolo.id,
+          "poster_path": linkImgPoster(filmSingolo.backdrop_path),
+          "title": filmSingolo.title,
+          "original_title": filmSingolo.original_title,
+          "original_language": flagLingua(filmSingolo.original_language),
+          "vote_average": votoStelle(filmSingolo.vote_average),
+          "overview": descrizioneFilm,
+        };
+
+        var html = template(context);
+        append.append(html);
+
+        var swiper = new Swiper('.swiper-container', {
+          speed: 800,
+          parallax: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+
+      }
+    },
+    error: function(richiesta, stato, errori) {
+      console.log(errori);
+    }
+  });
 
 }

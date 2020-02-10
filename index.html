@@ -10,6 +10,9 @@
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+
+
   <link rel="stylesheet" href="css/style.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.js" integrity="sha256-N5vR06TQIR+YD8oS0yndB1pu/EITeijW52dwezEq7/g=" crossorigin="anonymous"></script>
@@ -38,6 +41,30 @@
   <main>
     <div class="main__container">
 
+
+
+      <!-- Swiper -->
+      <div class="swiper-container">
+
+        <div class="swiper-wrapper">
+
+
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiper-pagination-white"></div>
+        <!-- Add Navigation -->
+        <!-- <div class="swiper-button-prev swiper-button-white"></div>
+        <div class="swiper-button-next swiper-button-white"></div> -->
+      </div>
+
+      <!-- Swiper JS -->
+
+
+
+      <div class="slider__prossimamente">
+
+      </div>
+
       <div class="film-popolari">
         <div class="popolari__titoli">
           <h2>I film imperdibili del 2020</h2>
@@ -50,6 +77,12 @@
           <h3>Non perderti questi film</h3>
         </div>
       </div>
+
+
+
+
+
+
 
       <div class="intestazioneFilm"></div>
       <div class="film" data-page="1"></div>
@@ -201,8 +234,30 @@
     <option class="option" value="{{genere}}">{{genere}}</option>
     </script>
 
+
+
+  <!-- ////////////////////////////// -->
+  <script id="slider_home" type="text/x-handlebars-template">
+
+    <div class="swiper-slide" data-id="{{id}}">
+    <div class="parallax-bg" style="background-image: linear-gradient(0deg, rgba(19,23,34,1) 14%, rgba(19,23,34,0.2024160005799195) 100%), url({{poster_path}});" data-swiper-parallax="-23%"></div>
+      <div class="title" data-swiper-parallax="-300">{{title}}</div>
+      <div class="modal__generi padding" data-swiper-parallax="-200">{{{genereStampa}}}</div>
+      <div class=" subtitle modal__lingua" data-swiper-parallax="-200">Lingua: {{{original_language}}}</div>
+      <div class="overlay__voto" data-swiper-parallax="-200">{{{vote_average}}}</div>
+      <div class="text" data-swiper-parallax="-100">
+      <p>{{overview}}</p>
+
+      </div>
+    </div>
+
+  </script>
+
+  <!-- ///////////////////////////////// -->
+
   <script src="js/script.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://unpkg.com/swiper/js/swiper.js"></script>
 </body>
 
 </html>
