@@ -5,56 +5,204 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
   <link rel="stylesheet" href="css/style.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.js" integrity="sha256-N5vR06TQIR+YD8oS0yndB1pu/EITeijW52dwezEq7/g=" crossorigin="anonymous"></script>
+
   <title>Boolflix JS 06.02.2020</title>
 </head>
 
 <body>
+
   <header>
     <div class="container">
       <div class="container__left">
-        <h1>BoolFlix</h1>
+        <a href="#"><img src="img/logo.jpg" alt="logo"></a>
       </div>
       <div class="container__right">
-        <input class="input-ricerca" type="text" name="input" placeholder="Inserisci il nome del film" value="">
-        <button class="cerca" type="button" name="button">Cerca</button>
+        <div class="right__search">
+          <input type="text" name="button" class="input-search input-ricerca" placeholder="Cerca un film, Serie tv..." />
+          <a class="input-button">
+            <i class="cerca fas fa-search"></i>
+          </a>
+        </div>
+
       </div>
     </div>
   </header>
   <main>
     <div class="main__container">
+
+      <div class="film-popolari">
+        <div class="popolari__titoli">
+          <h2>I film imperdibili del 2020</h2>
+          <h3>I Film più visti al cinema</h3>
+        </div>
+      </div>
+      <div class="film-piu-votati">
+        <div class="votati__titoli">
+          <h2>I film più votati</h2>
+          <h3>Non perderti questi film</h3>
+        </div>
+      </div>
+      
+      <div class="intestazioneFilm"></div>
       <div class="film"></div>
-      <h2>Serie tv</h2>
+      <div class="intestazione-serie"></div>
       <div class="serie_tv"></div>
     </div>
+
   </main>
 
-  <script id="film" type="text/x-handlebars-template">
-    <div class="film__container">
-      <img class="crop" src="{{{poster_path}}}" alt="{{title}}">
-      <div>{{title}}</div>
-      <div>{{original_title}}</div>
-      <div>{{{original_language}}}</div>
-      <div>{{{vote_average}}}</div>
-    </div>
 
+  <script id="film" type="text/x-handlebars-template">
+    <div class="film__container" data-id="{{id}}" data-genere="{{genere}}">
+      <div class="film__img">
+        <div class="film__overlay">
+          <div class="overlay__top">
+            <div>{{{original_language}}}</div>
+            <div>{{{genereStampa}}}</div>
+          </div>
+          <div class="overlay__center">
+            <button class="bottone__info " type="button" name="button"> + info</button>
+          </div>
+          <div class="overlay__bottom">
+            <h3>{{title}}</h3>
+            <div class="overlay__voto">{{{vote_average}}}</div>
+          </div>
+        </div>
+        <img class="crop" src="{{{poster_path}}}" alt="{{title}}">
+      </div>
+      <div class="modal__bg"  data-id="{{id}}">
+        <div class="modal__container">
+          <i class="far fa-times-circle fixed close_icon"></i>
+          <div class="modal__container__left sticky">
+            <img class="crop3"  src="{{{poster_path}}}" alt="{{title}}">
+            <h2>{{title}}</h2>
+            <p> Titolo originale: {{original_title}}</p>
+            <div class="modal__lingua">Lingua: {{{original_language}}}</div>
+            <div class="overlay__voto">{{{vote_average}}}</div>
+          </div>
+          <div class="modal__container__right">
+            <h2>Descrizione</h2>
+            <p>{{overview}}</p>
+            <h2>Generi</h2>
+            <div class="modal__generi">{{{genereStampa}}}</div>
+            <h2>Cast</h2>
+            <div  class="cast_film" data-id="{{id}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </script>
+
+
+
+  <script id="cast" type="text/x-handlebars-template">
+    <div class="schede_attori">
+      <img class="crop2"  src="{{{profile_path}}}" alt="{{namecast}}">
+      <h4>{{namecast}}</h4>
+    </div>
+  </script>
+
+  <!-- //////////// INTESTAZIONE FILM  //////////////////////////////-->
+  <script id="intestazioneFilm" type="text/x-handlebars-template">
+    <div class="int-film__container">
+      <select id="selettore-film" name="selettore">
+        <option class="option" value="Tutti">Tutti i generi</option>
+      </select>
+
+      <div class="titolo__film">
+        <h2>Film</h2>
+      </div>
+      <div class="">
+        <button class="bottone__prev" type="button" name="pagina-prev">prev</button>
+        <button class="bottone__suc" type="button" name="pagina-suc">succ</button>
+      </div>
+    </div>
+  </script>
+  <!-- //////////////////////////////////////////////////// -->
+
+  <script id="opzione_selettore" type="text/x-handlebars-template">
+    <option class="option" value="{{genere}}">{{genere}}</option>
+  </script>
+
+
+
 
   <script id="serie_tv" type="text/x-handlebars-template">
-    <div class="serie_tv__container">
-      <img class="crop" src="{{{poster_path}}}" alt="{{name}}">
-      <div>{{name}}</div>
-      <div>{{original_name}}</div>
-      <div>{{{original_language}}}</div>
-      <div>{{{vote_average}}}</div>
+    <div class="serietv__container" data-id="{{id}}" data-genere="{{genere}}">
+      <div class="serietv__img">
+        <div class="serietv__overlay">
+          <div class="overlay__top">
+            <div>{{{original_language}}}</div>
+            <div>{{{genereStampa}}}</div>
+          </div>
+          <div class="overlay__center">
+            <button class="bottone__info " type="button" name="button"> + info</button>
+          </div>
+          <div class="overlay__bottom">
+            <h3>{{name}}</h3>
+            <div class="overlay__voto">{{{vote_average}}}</div>
+          </div>
+        </div>
+        <img class="crop" src="{{{poster_path}}}" alt="{{title}}">
+      </div>
+      <div class="modal__bg"  data-id="{{id}}">
+        <div class="modal__container">
+          <i class="far fa-times-circle fixed close_icon"></i>
+          <div class="modal__container__left sticky">
+            <img class="crop3"  src="{{{poster_path}}}" alt="{{title}}">
+            <h2>{{name}}</h2>
+            <p> Titolo originale: {{original_name}}</p>
+            <div class="modal__lingua">Lingua: {{{original_language}}}</div>
+            <div class="overlay__voto">{{{vote_average}}}</div>
+          </div>
+          <div class="modal__container__right">
+            <h2>Descrizione</h2>
+            <p>{{overview}}</p>
+            <h2>Generi</h2>
+            <div class="modal__generi">{{{genereStampa}}}</div>
+            <h2>Cast</h2>
+            <div  class="cast_film" data-id="{{id}}">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </script>
 
+
+  <!-- //////////// INTESTAZIONE SERIE TV  //////////////////////////////-->
+  <script id="intestazione-serie" type="text/x-handlebars-template">
+    <div class="int-serie__container">
+        <select id="selettore-serie" name="selettore">
+          <option class="option" value="Tutti">Tutti i generi</option>
+        </select>
+
+        <div class="titolo__serie_tv">
+          <h2>Serie Tv</h2>
+        </div>
+        <div class="">
+          <button class="bottone__prev__serie" type="button" name="pagina-prev">prev</button>
+          <button class="bottone__suc__serie" type="button" name="pagina-suc">succ</button>
+        </div>
+      </div>
+    </script>
+  <!-- //////////////////////////////////////////////////// -->
+
+  <script id="opzione_selettore__serie" type="text/x-handlebars-template">
+    <option class="option" value="{{genere}}">{{genere}}</option>
+    </script>
+
   <script src="js/script.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>

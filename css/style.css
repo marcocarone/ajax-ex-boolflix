@@ -6,37 +6,557 @@
 
 .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 40px;
   align-items: center;
-  height: 60px;
-  background-color: rgb(30, 30, 31);
+  height: 80px;
+  background-color: #ffffff;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
 }
 
-h1 {
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  position: relative;
+  background-color: #131722;
+  min-width: 320px;
+}
+
+.container__left img {
+  width: 140px;
+}
+
+.titolo__film,
+.titolo__serie_tv {
   color: #ffffff;
+  padding: 30px 0;
+}
+
+.genere {
+  text-align: center;
+  font-size: .5em;
+  padding: 5px;
+  background-color: #08AEEA;
+  background-image: linear-gradient(69deg, #08AEEA 0%, #2AF598 100%);
+  border-radius: 30px;
+  margin: 3px;
+}
+
+/* /////////////// HOME PAGE - POPOLARI /////////////// */
+.film-popolari,
+.film-piu-votati {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  justify-content: space-between;
+  width: 100%;
+  padding: 30px 20px 90px 20px;
+
+}
+
+.popolari__titoli,
+.votati__titoli {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  flex-basis: 33%;
+  padding: 40px;
+  color: #ffffff;
+}
+
+.popolari__titoli h2,
+.votati__titoli h2 {
+  font-size: 2.6em;
+  padding: 40px 0;
+}
+
+.popolari__titoli h3,
+.votati__titoli h3 {
+  font-weight: 300;
+}
+
+.film-piu-votati {
+  background-color: #ffffff;
+}
+
+.votati__titoli {
+  color: #08AEEA;
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.votati__titoli h3 {
+  color: rgb(22, 26, 42);
+
+}
+/* ////////////////// INPUT RICERCA ////////////////// */
+.right__search {
+  background: #131722;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+}
+
+.right__search:hover>.input-search {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.right__search:hover>.input-button {
+  color: #24baef;
+}
+
+.input-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  color: white;
+  cursor: pointer;
+}
+
+.input-button>i {
+  font-size: 1em;
+}
+
+.input-search {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 20px;
+  width: 0px;
+}
+
+.input-search::placeholder {
+  color: #4c5263;
+}
+
+/* ////////////////// FINE INPUT RICERCA ////////////////// */
+.modal__bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.modal__container {
+  height: 80%;
+  width: 80%;
+  background-color: #ffffff;
+  z-index: 4;
+  overflow-y: auto;
+  display: flex;
+}
+
+.show {
+  display: flex;
+}
+
+.modal__container__left,
+.modal__container__right,
+.schede_attori {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__container__left {
+  flex-basis: 30%;
+  min-width: 300px;
+  text-align: center;
+  align-items: center;
+}
+
+.modal__container__left h2 {
+  padding: 10px 0;
+}
+
+.modal__lingua {
+  padding: 10px 0;
+  line-height: 50px;
+  display: flex;
+}
+
+.modal__container__right {
+  flex-basis: 70%;
+}
+
+.modal__container__right h2 {
+  padding: 40px;
+}
+
+.modal__container__right p {
+  padding: 0 40px;
+}
+
+.modal__generi {
+  display: flex;
+  padding-left: 40px;
+  font-size: 1.4em;
+  color: #ffffff;
+}
+
+.schede_attori {
+  padding-bottom: 25px;
+  padding: 20px;
+  width: calc(100% / 3);
+}
+
+.schede_attori h4 {
+  text-align: center;
+  font-size: 1em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cast_film {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.fixed {
+  position: fixed;
+  top: 25px;
+  right: 10%;
+}
+
+.close_icon {
+  color: #ffffff;
+  font-size: 1.8em;
+}
+
+.sticky {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background-color: #131722;
+  padding: 50px;
+  color: #ffffff;
+  overflow-y: auto;
 }
 
 .lingue {
   width: 25px;
+  margin: 0 10px;
 }
 
 .main__container,
 .film__container,
+.serietv__container,
 .serie_tv__container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.main__container {
+  padding-top: 100px;
 }
 
 .film,
 .serie_tv {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  flex-basis: auto;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .crop {
-  width: 340px;
-  height: 510px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: all .3s ease-in-out;
+}
+
+.crop2 {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.crop3 {
+  width: 100%;
+  object-fit: cover;
+}
+
+.film__img,
+.serietv__img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.film__container:hover .crop,
+.film__container:focus .crop,
+.serietv__container:hover .crop,
+.serietv__container:focus .crop {
+  transform: scale(1.05);
+  filter: blur(3px);
+}
+
+.film__container,
+.serietv__container {
+  position: relative;
+  padding: 20px;
+  width: calc(100% / 6);
+}
+
+.film__overlay,
+.serietv__overlay {
+  opacity: 0;
+  height: calc(100% - 40px);
+  width: calc(100% - 40px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #ffffff;
+}
+
+.film__container:hover .film__overlay,
+.serietv__container:hover .serietv__overlay {
+  opacity: 1;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.36207986612613796) 52%, rgba(0, 0, 0, 1) 100%);
+}
+
+.overlay__top {
+  display: flex;
+  flex-basis: 20%;
+  color: #ffffff;
+  font-weight: 700;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.overlay__center {
+  display: flex;
+  flex-basis: 60%;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay__bottom {
+  display: flex;
+  flex-basis: 20%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bottone__info,
+.bottone__prev,
+.bottone__suc,
+.bottone__prev__serie,
+.bottone__suc__serie {
+  height: 40px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  border: 2px solid #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 0.9em;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.bottone__info:hover,
+.bottone__prev:hover,
+.bottone__suc:hover,
+.bottone__prev__serie:hover,
+.bottone__suc__serie:hover {
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  color: #000000;
+}
+
+.overlay__bottom h3 {
+  color: #ffffff;
+  font-size: 1.3em;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.overlay__voto {
+  color: #24baef;
+  font-size: 1.1em;
+}
+
+/* //////////// INTESTAZIONE FILM ////////////////*/
+.int-film__container,
+.int-serie__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.int-film__container select,
+.int-serie__container select {
+  border-radius: 50px;
+  line-height: 40px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* MEDIA QUERY */
+@media screen and (min-width: 1400px) and (max-width: 1800px) {
+  .popolari__titoli {
+    flex-basis: 100%;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: calc(100% / 5);
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .popolari__titoli {
+    flex-basis: 50%;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: calc(100% / 4);
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+  .popolari__titoli {
+    flex-basis: 50%;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: calc(100% / 4);
+  }
+
+  .schede_attori {
+    width: calc(100% / 2);
+  }
+}
+
+@media screen and (min-width: 860px) and (max-width: 1024px) {
+  .popolari__titoli {
+    flex-basis: 50%;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: calc(100% / 3);
+  }
+
+  .schede_attori {
+    width: calc(100% / 1);
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 860px) {
+  .popolari__titoli {
+    flex-basis: 100%;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: calc(100% / 2);
+  }
+
+  .modal__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sticky {
+    position: relative;
+    overflow-y: unset;
+  }
+
+  .crop3 {
+    width: 50%;
+  }
+
+  .schede_attori {
+    width: calc(100% / 2);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .popolari__titoli {
+    flex-basis: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    align-items: center;
+    height: 100px;
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+  }
+
+  h1 {
+    padding: 5px;
+  }
+
+  .right__search:hover>.input-search {
+    width: 200px;
+    padding: 0 6px;
+  }
+
+  .film__container,
+  .serietv__container {
+    width: 100%;
+  }
+
+  .modal__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sticky {
+    position: relative;
+    overflow-y: unset;
+  }
+
+  .crop3 {
+    width: 50%;
+  }
+
+  .schede_attori {
+    width: calc(100% / 1);
+  }
 }
