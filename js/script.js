@@ -260,32 +260,23 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
           $(".bottone__prev").hide()
 
           var dataPagina = $(".main__container").find(".film").attr("data-page");
-          console.log( $(".main__container").find(".film").attr("data-page"))
+          console.log($(".main__container").find(".film").attr("data-page"))
 
           var numeroDataPagina = parseInt(dataPagina);
           console.log("numero data pagina: " + numeroDataPagina);
 
+          $(".bottone__suc").click(function() {
 
-
-          // $(document).on("click", ".bottone__suc", function() {
-
-          $( ".bottone__suc" ).click(function() {
-
-          numeroDataPagina++
-          console.log("num pagina prev: " + numeroDataPagina);
-
+            numeroDataPagina++
+            console.log("num pagina prev: " + numeroDataPagina);
 
             $(".film").html("");
-
             $(".bottone__prev").show()
-
-
             if (numeroDataPagina <= totalePagineFilm) {
               chiamataAjaxPaginaPrecSuc(numeroDataPagina, query);
             } else {
               $(this).hide();
             }
-
             if (numeroDataPagina == totalePagineFilm) {
               $(this).hide();
             }
@@ -293,10 +284,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
           });
 
 
-
-
-          // $(document).on("click", ".bottone__prev", function() {
-            $( ".bottone__prev" ).click(function() {
+          $(".bottone__prev").click(function() {
             numeroDataPagina--
             console.log("num pagina prev: " + numeroDataPagina);
 
@@ -304,15 +292,12 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
 
             $(".bottone__suc").show()
 
-
-
             if (numeroDataPagina >= 1) {
               $(".film").html("");
               chiamataAjaxPaginaPrecSuc(numeroDataPagina, query);
             } else {
               $(this).hide();
             }
-
             if (numeroDataPagina == 1) {
               $(this).hide();
             }
@@ -332,7 +317,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
               },
               success: function(data) {
                 var risultatiFilm = data.results;
-                // var totalePagineFilm = data.total_pages;
+
 
                 $(".film").html("");
 
@@ -345,11 +330,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
             });
           }
 
-
-
           ///////////////////////////////////////////////////////////
-
-
 
         }
       },
@@ -369,6 +350,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
       },
       success: function(data) {
         var risultatiSerieTv = data.results;
+        var totalePagineSerieTV = data.total_pages;
         if (data.total_results == 0) {
 
           Toastify({
@@ -412,6 +394,88 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
           }
 
           ////////////////////////////////////////////////////////////////////////
+
+
+          /////////////////// FUNZIONE PAGINE SUCCESSIVA E PRECEDENTE ////////////
+
+
+          $(".bottone__prev__serie").hide()
+
+          var dataPagina = $(".main__container").find(".serie_tv").attr("data-page");
+          console.log($(".main__container").find(".serie_tv").attr("data-page"))
+
+          var numeroDataPagina = parseInt(dataPagina);
+          console.log("numero data pagina: " + numeroDataPagina);
+
+          $(".bottone__suc__serie").click(function() {
+
+            numeroDataPagina++
+            console.log("num pagina prev: " + numeroDataPagina);
+
+            $(".serie_tv").html("");
+            $(".bottone__prev__serie").show()
+            if (numeroDataPagina <= totalePagineSerieTV) {
+              chiamataAjaxPaginaPrecSucSerieTv(numeroDataPagina, query);
+            } else {
+              $(this).hide();
+            }
+            if (numeroDataPagina == totalePagineSerieTV) {
+              $(this).hide();
+            }
+
+          });
+
+
+          $(".bottone__prev__serie").click(function() {
+            numeroDataPagina--
+            console.log("num pagina prev: " + numeroDataPagina);
+
+            $(".serie_tv").html("");
+
+            $(".bottone__suc__serie").show()
+
+            if (numeroDataPagina >= 1) {
+              $(".serie_tv").html("");
+              chiamataAjaxPaginaPrecSucSerieTv(numeroDataPagina, query);
+            } else {
+              $(this).hide();
+            }
+            if (numeroDataPagina == 1) {
+              $(this).hide();
+            }
+          });
+
+
+
+          function chiamataAjaxPaginaPrecSucSerieTv(pagina, query) {
+
+            $.ajax({
+              url: LinkSerieTv,
+              method: 'GET',
+              data: {
+                api_key: ApiKey,
+                language: "it-IT",
+                query: query,
+                page: pagina,
+              },
+              success: function(data) {
+                var risultatiSerieTv = data.results;
+
+
+                $(".serie_tv").html("");
+
+                stampaSerieTv(risultatiSerieTv, listaGeneriSerieTv)
+
+              },
+              error: function(richiesta, stato, errori) {
+                console.log(errori);
+              }
+            });
+          }
+
+
+
+          ///////////////////////////////////////////////////////////
 
         }
 
