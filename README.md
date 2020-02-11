@@ -16,4 +16,4 @@ Le informazioni contenute nella pagina sono recuperate attraverso l'API https://
 
 # Presentazione
 
-https://gfycat.com/helpfuluncommonfinch
+![Anteprima GIF Gfycat](https://user-images.githubusercontent.com/57659914/74236039-99796600-4cd0-11ea-8d2f-00bc8a58476a.gif)
