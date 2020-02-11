@@ -690,7 +690,7 @@ function ricercaFilmHome(listaGeneriFilm, numero, link, append) {
 
 
 
-/////////////  FUNZIONE RICERCA FILM E SERIE TV //////////////////
+/////////////  FUNZIONE RICERCA SLIDER //////////////////
 function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
 
   $.ajax({
@@ -732,6 +732,7 @@ function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
           "original_language": flagLingua(filmSingolo.original_language),
           "vote_average": votoStelle(filmSingolo.vote_average),
           "overview": descrizioneFilm,
+          "backdrop": 'https://image.tmdb.org/t/p/w1280/' + filmSingolo.backdrop_path
         };
 
         var html = template(context);
@@ -740,10 +741,10 @@ function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
         var swiper = new Swiper('.swiper-container', {
           speed: 800,
           parallax: true,
-          autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-          },
+          // autoplay: {
+          //   delay: 2500,
+          //   disableOnInteraction: false,
+          // },
           pagination: {
             el: '.swiper-pagination',
             clickable: true,
