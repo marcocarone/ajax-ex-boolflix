@@ -173,11 +173,11 @@ $(document).ready(function() {
   //////////////////////////////////////////////////////////////////////
 
 
-  ////////////// HOME PAGE - SLIDER /////////////////////////////
+////////////// HOME PAGE - SLIDER /////////////////////////////
   var LinkProssimamenteAlCinema = "https://api.themoviedb.org/3/movie/upcoming?api_key=30743f728290a89379008b370ac44151&language=it-IT&page=1";
   var appendSlider = $(".swiper-wrapper");
   var sourceSlider = $("#slider_home");
-  ricercheHome(listaGeneriFilm, 9, LinkProssimamenteAlCinema, appendSlider, sourceSlider);
+  ricercheHome(listaGeneriFilm, 9, LinkProssimamenteAlCinema, appendSlider, sourceSlider );
 
 
 
@@ -318,6 +318,33 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
             }
           });
 
+
+
+          function chiamataAjaxPaginaPrecSuc(pagina, query) {
+            $.ajax({
+              url: LinkFilm,
+              method: 'GET',
+              data: {
+                api_key: ApiKey,
+                language: "it-IT",
+                query: query,
+                page: pagina,
+              },
+              success: function(data) {
+                var risultatiFilm = data.results;
+
+
+                $(".film").html("");
+
+                stampaFilm(risultatiFilm, listaGeneriFilm);
+
+              },
+              error: function(richiesta, stato, errori) {
+                console.log(errori);
+              }
+            });
+          }
+
           ///////////////////////////////////////////////////////////
 
         }
@@ -432,6 +459,37 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
               $(this).hide();
             }
           });
+
+
+
+          function chiamataAjaxPaginaPrecSucSerieTv(pagina, query) {
+
+            $.ajax({
+              url: LinkSerieTv,
+              method: 'GET',
+              data: {
+                api_key: ApiKey,
+                language: "it-IT",
+                query: query,
+                page: pagina,
+              },
+              success: function(data) {
+                var risultatiSerieTv = data.results;
+
+
+                $(".serie_tv").html("");
+
+                stampaSerieTv(risultatiSerieTv, listaGeneriSerieTv)
+
+              },
+              error: function(richiesta, stato, errori) {
+                console.log(errori);
+              }
+            });
+          }
+
+
+
           ///////////////////////////////////////////////////////////
 
         }
@@ -577,59 +635,6 @@ function linkImgPoster(path) {
   return linkPoster
 }
 ////////////////////////////////////////////////////////////////////////
-
-
-function chiamataAjaxPaginaPrecSuc(pagina, query) {
-  $.ajax({
-    url: LinkFilm,
-    method: 'GET',
-    data: {
-      api_key: ApiKey,
-      language: "it-IT",
-      query: query,
-      page: pagina,
-    },
-    success: function(data) {
-      var risultatiFilm = data.results;
-
-
-      $(".film").html("");
-
-      stampaFilm(risultatiFilm, listaGeneriFilm);
-
-    },
-    error: function(richiesta, stato, errori) {
-      console.log(errori);
-    }
-  });
-}
-
-
-function chiamataAjaxPaginaPrecSucSerieTv(pagina, query) {
-
-  $.ajax({
-    url: LinkSerieTv,
-    method: 'GET',
-    data: {
-      api_key: ApiKey,
-      language: "it-IT",
-      query: query,
-      page: pagina,
-    },
-    success: function(data) {
-      var risultatiSerieTv = data.results;
-
-
-      $(".serie_tv").html("");
-
-      stampaSerieTv(risultatiSerieTv, listaGeneriSerieTv)
-
-    },
-    error: function(richiesta, stato, errori) {
-      console.log(errori);
-    }
-  });
-}
 
 /////////////  FUNZIONE RICERCHE HOME //////////////////
 function ricercheHome(listaGeneriFilm, numero, link, append, sourceTemplate) {
