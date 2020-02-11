@@ -423,6 +423,10 @@ body {
   padding: 0 40px;
 }
 
+.int-film__container {
+  padding: 20px 40px 0 40px;
+}
+
 .int-film__container select,
 .int-serie__container select {
   border-radius: 50px;
@@ -458,8 +462,6 @@ body {
   background-position: top;
   z-index: -1;
 }
-
-
 
 .swiper-slide .title {
   padding-top: 50px;
@@ -627,9 +629,7 @@ body {
     background-color: #131722;
     padding: 50px;
     color: #ffffff;
-
   }
-
 
   .crop3 {
     width: 50%;

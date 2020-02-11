@@ -67,6 +67,9 @@ $(document).ready(function() {
   $(document).on("click", ".fa-times-circle", function() {
     $(this).parent().parent().removeClass("show");
   });
+  $(document).on("click", ".modal__bg", function() {
+    $(this).removeClass("show");
+  });
   ////////////////////////////////////////////////////////////
 
 
@@ -203,6 +206,7 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
     $(".int-serie__container").remove();
     $(".film-popolari").remove();
     $(".film-piu-votati").remove();
+    $(".swiper-container").remove();
 
 
 
