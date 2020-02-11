@@ -177,8 +177,10 @@ body {
 }
 
 .modal__container__left {
-  flex-basis: 30%;
+  /* flex-basis: 30%; */
   min-width: 300px;
+
+  display: flex;
   text-align: center;
   align-items: center;
 }
@@ -250,13 +252,14 @@ body {
 
 .sticky {
   position: sticky;
+  flex-basis: 30%;
   width: 100%;
   height: 100%;
   top: 0;
   background-color: #131722;
   padding: 50px;
   color: #ffffff;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .lingue {
@@ -623,7 +626,7 @@ body {
 
   .sticky {
     position: relative;
-    overflow-y: visible;
+    /* overflow-y: visible; */
     width: 100%;
     height: 700px;
     background-color: #131722;

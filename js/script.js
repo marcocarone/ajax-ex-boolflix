@@ -162,19 +162,22 @@ $(document).ready(function() {
   var numeroFilmPopolari = 10;
   var LinkPopolari = "https://api.themoviedb.org/3/movie/popular?api_key=30743f728290a89379008b370ac44151&language=it-IT&page=1";
   var appendPopolari = $(".film-popolari");
-  ricercaFilmHome(listaGeneriFilm, numeroFilmPopolari, LinkPopolari, appendPopolari);
+  var sourcePopolari = $("#film");
+  ricercheHome(listaGeneriFilm, numeroFilmPopolari, LinkPopolari, appendPopolari, sourcePopolari);
   ////////////////////////////////////////////////////////////////
   var LinkPiuVisti = "https://api.themoviedb.org/3/movie/top_rated?api_key=30743f728290a89379008b370ac44151&language=it-IT&page=2";
   var appendPiuVisti = $(".film-piu-votati");
-  ricercaFilmHome(listaGeneriFilm, 6, LinkPiuVisti, appendPiuVisti);
+  var sourcePiuVisti = $("#film");
+  ricercheHome(listaGeneriFilm, 6, LinkPiuVisti, appendPiuVisti, sourcePiuVisti);
 
   //////////////////////////////////////////////////////////////////////
 
 
-////////////// HOME PAGE - SLIDER /////////////////////////////
+  ////////////// HOME PAGE - SLIDER /////////////////////////////
   var LinkProssimamenteAlCinema = "https://api.themoviedb.org/3/movie/upcoming?api_key=30743f728290a89379008b370ac44151&language=it-IT&page=1";
   var appendSlider = $(".swiper-wrapper");
-  ricercaSliderHome(listaGeneriFilm, 9, LinkProssimamenteAlCinema, appendSlider);
+  var sourceSlider = $("#slider_home");
+  ricercheHome(listaGeneriFilm, 9, LinkProssimamenteAlCinema, appendSlider, sourceSlider);
 
 
 
@@ -315,33 +318,6 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
             }
           });
 
-
-
-          function chiamataAjaxPaginaPrecSuc(pagina, query) {
-            $.ajax({
-              url: LinkFilm,
-              method: 'GET',
-              data: {
-                api_key: ApiKey,
-                language: "it-IT",
-                query: query,
-                page: pagina,
-              },
-              success: function(data) {
-                var risultatiFilm = data.results;
-
-
-                $(".film").html("");
-
-                stampaFilm(risultatiFilm, listaGeneriFilm);
-
-              },
-              error: function(richiesta, stato, errori) {
-                console.log(errori);
-              }
-            });
-          }
-
           ///////////////////////////////////////////////////////////
 
         }
@@ -456,37 +432,6 @@ function ricercaFilmSerieTv(ApiKey, LinkFilm, LinkSerieTv, listaGeneriFilm, list
               $(this).hide();
             }
           });
-
-
-
-          function chiamataAjaxPaginaPrecSucSerieTv(pagina, query) {
-
-            $.ajax({
-              url: LinkSerieTv,
-              method: 'GET',
-              data: {
-                api_key: ApiKey,
-                language: "it-IT",
-                query: query,
-                page: pagina,
-              },
-              success: function(data) {
-                var risultatiSerieTv = data.results;
-
-
-                $(".serie_tv").html("");
-
-                stampaSerieTv(risultatiSerieTv, listaGeneriSerieTv)
-
-              },
-              error: function(richiesta, stato, errori) {
-                console.log(errori);
-              }
-            });
-          }
-
-
-
           ///////////////////////////////////////////////////////////
 
         }
@@ -634,68 +579,60 @@ function linkImgPoster(path) {
 ////////////////////////////////////////////////////////////////////////
 
 
-
-/////////////  FUNZIONE RICERCA FILM HOME //////////////////
-function ricercaFilmHome(listaGeneriFilm, numero, link, append) {
-
+function chiamataAjaxPaginaPrecSuc(pagina, query) {
   $.ajax({
-    url: link,
+    url: LinkFilm,
     method: 'GET',
-
+    data: {
+      api_key: ApiKey,
+      language: "it-IT",
+      query: query,
+      page: pagina,
+    },
     success: function(data) {
-      var risultatiFilmPopolari = data.results;
-      var source = $("#film").html();
-      var template = Handlebars.compile(source);
+      var risultatiFilm = data.results;
 
-      for (var i = 0; i < numero; i++) {
-        var filmSingolo = risultatiFilmPopolari[i];
 
-        var descrizioneFilm = filmSingolo.overview;
-        if (descrizioneFilm.length == 0) {
-          descrizioneFilm = "Non è presente una descrizione del film"
-        }
-        var generiFilmSingolo = filmSingolo.genre_ids;
+      $(".film").html("");
 
-        var listaGeneriFilmSingolo = [];
-        var genereFilmStampa = "";
-        for (var n = 0; n < generiFilmSingolo.length; n++) {
-          for (var j = 0; j < listaGeneriFilm.length; j++) {
-            if (generiFilmSingolo[n] == listaGeneriFilm[j].id) {
-              var genereFilm = listaGeneriFilm[j].name;
-              listaGeneriFilmSingolo.push(genereFilm);
-              genereFilmStampa += "<div class='genere'>" + genereFilm + "</div>"
-            }
-          }
-        }
-        var context = {
-          "genereStampa": genereFilmStampa,
-          "genere": listaGeneriFilmSingolo,
-          "id": filmSingolo.id,
-          "poster_path": linkImgPoster(filmSingolo.poster_path),
-          "title": filmSingolo.title,
-          "original_title": filmSingolo.original_title,
-          "original_language": flagLingua(filmSingolo.original_language),
-          "vote_average": votoStelle(filmSingolo.vote_average),
-          "overview": descrizioneFilm,
-        };
+      stampaFilm(risultatiFilm, listaGeneriFilm);
 
-        var html = template(context);
-        append.append(html);
-
-      }
     },
     error: function(richiesta, stato, errori) {
       console.log(errori);
     }
   });
-
 }
 
 
+function chiamataAjaxPaginaPrecSucSerieTv(pagina, query) {
+
+  $.ajax({
+    url: LinkSerieTv,
+    method: 'GET',
+    data: {
+      api_key: ApiKey,
+      language: "it-IT",
+      query: query,
+      page: pagina,
+    },
+    success: function(data) {
+      var risultatiSerieTv = data.results;
 
 
-/////////////  FUNZIONE RICERCA SLIDER //////////////////
-function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
+      $(".serie_tv").html("");
+
+      stampaSerieTv(risultatiSerieTv, listaGeneriSerieTv)
+
+    },
+    error: function(richiesta, stato, errori) {
+      console.log(errori);
+    }
+  });
+}
+
+/////////////  FUNZIONE RICERCHE HOME //////////////////
+function ricercheHome(listaGeneriFilm, numero, link, append, sourceTemplate) {
 
   $.ajax({
     url: link,
@@ -703,7 +640,7 @@ function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
 
     success: function(data) {
       var risultatiProsAlCinema = data.results;
-      var source = $("#slider_home").html();
+      var source = sourceTemplate.html();
       var template = Handlebars.compile(source);
 
       for (var i = 0; i < numero; i++) {
@@ -730,7 +667,7 @@ function ricercaSliderHome(listaGeneriFilm, numero, link, append) {
           "genereStampa": genereFilmStampa,
           "genere": listaGeneriFilmSingolo,
           "id": filmSingolo.id,
-          "poster_path": linkImgPoster(filmSingolo.backdrop_path),
+          "poster_path": linkImgPoster(filmSingolo.poster_path),
           "title": filmSingolo.title,
           "original_title": filmSingolo.original_title,
           "original_language": flagLingua(filmSingolo.original_language),
